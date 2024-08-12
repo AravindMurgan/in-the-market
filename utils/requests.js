@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
 
 async function fetchProperties() {
