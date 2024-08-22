@@ -8,12 +8,10 @@ import { fetchProperties } from "@/utils/requests";
 const HomeProperties =async () => {
   
   const properties = await fetchProperties();
-  console.log('propertiesLen',properties.length) 
   const recentProperties = properties
     .sort(() => Math.random() - Math.random)
     .slice(0, 3);
 
-  console.log('recentProperties:::',recentProperties)
   return (
     <>
       <section className="px-4 py-6">
