@@ -9,16 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@maptiler/sdk": "^2.2.2",
+    "babel-eslint": "^10.1.0",
     "cloudinary": "^2.4.0",
+    "eslint-plugin-react": "^7.35.0",
     "in-the-market": "file:",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.1",
     "next": "14.2.5",
     "next-auth": "^4.24.7",
+    "opencage-api-client": "^1.0.7",
+    "photoswipe": "^5.4.4",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
     "react-photoswipe-gallery": "^3.0.2",
+    "react-share": "^5.1.0",
     "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.5"
   },
