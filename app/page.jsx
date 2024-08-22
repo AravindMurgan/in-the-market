@@ -1,3 +1,4 @@
+import FeaturedProperties from '@/components/FeaturedProperties'
 import Footer from '@/components/Footer'
 import Hero from '@/components/Hero'
 import HomeProperties from '@/components/HomeProperties'
@@ -11,6 +12,7 @@ const page = () => {
     <>
     <Hero />
     <InfoBoxes />
+    <FeaturedProperties />
     <HomeProperties />
     <Footer />
     </>
