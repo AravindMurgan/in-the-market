@@ -14,29 +14,39 @@ import { convertToSerializeableObject } from '@/utils/convertToObject';
 // route handler as it's no longer used.
 
 const SearchResultsPage = async ({
-  searchParams: { location, propertyType },
+  searchParams: { location, zipCode },
 }) => {
   await connectDB();
 
   const locationPattern = new RegExp(location, 'i');
+const zipCodePattern = zipCode.length > 0 ? new RegExp(zipCode, 'i') : null;
 
-  // Match location pattern against database fields
-  let query = {
-    $or: [
-      { name: locationPattern },
-      { description: locationPattern },
-      { 'location.street': locationPattern },
-      { 'location.city': locationPattern },
-      { 'location.state': locationPattern },
-      { 'location.zipcode': locationPattern },
-    ],
-  };
+let query = {};
 
-  // Only check for property if its not 'All'
-  if (propertyType && propertyType !== 'All') {
-    const typePattern = new RegExp(propertyType, 'i');
-    query.type = typePattern;
-  }
+// Match location pattern against database fields
+query = {
+  $or: [
+    {
+      $or: [
+        { name: locationPattern },
+        { description: locationPattern },
+        { 'location.street': locationPattern },
+        { 'location.city': locationPattern },
+        { 'location.state': locationPattern },
+      ],
+    },
+  ],
+};
+
+if(zipCodePattern){
+  query.$or.unshift({ 'location.zipcode': zipCodePattern });
+}
+
+  // // Only check for property if its not 'All'
+  // if (propertyType && propertyType !== 'All') {
+  //   const typePattern = new RegExp(propertyType, 'i');
+  //   query.type = typePattern;
+  // }
 
   const propertiesQueryResults = await Property.find(query).lean();
   const properties = convertToSerializeableObject(propertiesQueryResults);
