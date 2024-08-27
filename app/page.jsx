@@ -1,22 +1,45 @@
-import FeaturedProperties from '@/components/FeaturedProperties'
-import Footer from '@/components/Footer'
-import Hero from '@/components/Hero'
-import HomeProperties from '@/components/HomeProperties'
-import InfoBoxes from '@/components/InfoBoxes'
-import connectDB from '@/config/database'
-import React from 'react'
+import CarInfoBoxes from "@/components/CarInfoBoxes";
+import FeaturedProperties from "@/components/FeaturedProperties";
+import Hero from "@/components/Hero";
+import HomeProperties from "@/components/HomeProperties";
+import InfoBoxes from "@/components/InfoBoxes";
+import connectDB from "@/config/database";
+import Property from "@/models/Property";
+import React from "react";
 
-const page = () => {
-  
+const page =async () => {
+
+    // NOTE: here we can use a server component and simply query the database
+  // directly.
+
+  await connectDB();
+
+  const listings = await Property.find({
+    is_featured: true,
+  }).lean();
+
+
   return (
     <>
-    <Hero />
-    <InfoBoxes />
-    <FeaturedProperties />
-    <HomeProperties />
-    <Footer />
-    </>
-  )
-}
+      <Hero />
 
-export default page
+      {/* Properties */}
+      <section>
+        <InfoBoxes />
+        <FeaturedProperties data={listings} enitity="Properties" />
+        <HomeProperties />
+      </section>
+
+      {/* Luxury Cars */}
+      <section className="mt-32">
+        <CarInfoBoxes />
+        <FeaturedProperties data={listings} enitity="Cars"/>
+        <HomeProperties />
+      </section>
+
+
+    </>
+  );
+};
+
+export default page;
