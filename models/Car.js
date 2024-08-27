@@ -1,20 +1,44 @@
 import { Schema, model, models } from "mongoose";
 
-const PropertySchema = new Schema(
+const CarSchema = new Schema(
   {
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    name: {
+    brand: {
       type: String,
       required: true,
     },
-    type: {
+    model: {
       type: String,
       required: true,
     },
+    year: {
+      type: Number,
+      required: true,
+    },
+    transmission: {
+      type: String,
+    },
+    fuel_type: {
+      type: String,
+      required: true,
+    },
+    color: {
+      type: String,
+      required: true,
+    },
+    condition: {
+      type: String,
+      required: true,
+    },
+    previous_owners: {
+      type: Number,
+      required: true,
+    },
+
     description: {
       type: String,
     },
@@ -32,33 +56,14 @@ const PropertySchema = new Schema(
         type: String,
       },
     },
-    beds: {
-      type: Number,
-      required: true,
-    },
-    baths: {
-      type: Number,
-      required: true,
-    },
-    square_feet: {
-      type: Number,
-      required: true,
-    },
-    amenities: [
+    features: [
       {
         type: String,
       },
     ],
-    rates: {
-      nightly: {
-        type: Number,
-      },
-      weekly: {
-        type: Number,
-      },
-      monthly: {
-        type: Number,
-      },
+    price: {
+      type: Number,
+      required: true,
     },
     seller_info: {
       name: {
@@ -86,6 +91,6 @@ const PropertySchema = new Schema(
   }
 );
 
-const Property = models.Property || model("Property", PropertySchema);
+const Car = models.Car || model("Car", CarSchema);
 
-export default Property;
+export default Car;
