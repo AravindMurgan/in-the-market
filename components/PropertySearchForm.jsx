@@ -4,17 +4,19 @@ import { useRouter } from 'next/navigation';
 
 const PropertySearchForm = () => {
   const [location, setLocation] = useState('');
-  const [propertyType, setPropertyType] = useState('All');
+  // const [propertyType, setPropertyType] = useState('All');
+  const [zipCode, setZipCode] = useState('');
 
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (location === '' && propertyType === 'All') {
+    if (location === '' && zipCode === '') {
       router.push('/properties');
     } else {
-      const query = `?location=${location}&propertyType=${propertyType}`;
+
+      const query = `?location=${location}&zipCode=${zipCode}`;
 
       router.push(`/properties/search-results${query}`);
     }
@@ -27,19 +29,30 @@ const PropertySearchForm = () => {
     >
       <div className='w-full md:w-3/5 md:pr-2 mb-4 md:mb-0'>
         <label htmlFor='location' className='sr-only'>
-          Location
+          Search InTheMarket
         </label>
         <input
           type='text'
           id='location'
-          placeholder='Enter Keywords or Location'
+          placeholder='Search InTheMarket'
           className='w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500'
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
       </div>
       <div className='w-full md:w-2/5 md:pl-2'>
-        <label htmlFor='property-type' className='sr-only'>
+      <label htmlFor='zipcode' className='sr-only'>
+          Zipcode
+        </label>
+        <input
+          type='text'
+          id='zipcode'
+          placeholder='Zipcode'
+          className='w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500'
+          value={zipCode}
+          onChange={(e) => setZipCode(e.target.value)}
+        />
+        {/* <label htmlFor='property-type' className='sr-only'>
           Property Type
         </label>
         <select
@@ -57,7 +70,7 @@ const PropertySearchForm = () => {
           <option value='Loft'>Loft</option>
           <option value='Room'>Room</option>
           <option value='Other'>Other</option>
-        </select>
+        </select> */}
       </div>
       <button
         type='submit'
