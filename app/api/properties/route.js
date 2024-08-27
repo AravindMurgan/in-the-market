@@ -6,7 +6,6 @@ export const GET = async ({ request }) => {
     await connectDB();
 
     const properties = await Property.find({});
-    console.log(properties)
     return new Response(JSON.stringify(properties));
   } catch (error) {
     console.error(error);
