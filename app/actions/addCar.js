@@ -5,7 +5,6 @@ import connectDB from "@/config/database";
 import Car from "@/models/Car";
 import { getSessionUser } from "@/utils/getSessionUser";
 import { revalidatePath } from "next/cache";
-import { redirect } from 'next/navigation';
 
 async function addCar(formData) {
   await connectDB();
@@ -58,6 +57,7 @@ async function addCar(formData) {
 
   for(const imageFile of images){
     const imageBuffer = await imageFile.arrayBuffer()
+    // eslint-disable-next-line no-undef
     const imageArray = Array.from(new Uint8Array(imageBuffer))
     // eslint-disable-next-line no-undef
     const imageData = Buffer.from(imageArray)

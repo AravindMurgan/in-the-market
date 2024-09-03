@@ -59,6 +59,7 @@ async function addProperty(formData) {
 
   for(const imageFile of images){
     const imageBuffer = await imageFile.arrayBuffer()
+    // eslint-disable-next-line no-undef
     const imageArray = Array.from(new Uint8Array(imageBuffer))
     // eslint-disable-next-line no-undef
     const imageData = Buffer.from(imageArray)

@@ -49,6 +49,7 @@ export default function PropertyMap({ property }) {
     }
  
     fetchCoordinates();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
  
   useEffect(() => {

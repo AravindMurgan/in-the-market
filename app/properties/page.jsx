@@ -2,6 +2,7 @@ import PropertySearchForm from "@/components/PropertySearchForm";
 import Properties from "@/components/Properties";
 import Property from "@/models/Property";
 import connectDB from "@/config/database";
+import Pagination from "@/components/Pagination";
 
 // NOTE: this is a server component so we can use the url search parameters here
 // to query our database directly and then pass the properties to our Properties

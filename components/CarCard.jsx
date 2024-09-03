@@ -2,29 +2,24 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import {
-  FaBed,
-  FaBath,
-  FaRulerCombined,
-  FaMoneyBill,
+
   FaMapMarker,
-  FaMedal,
   FaCar,
-  FaCalendar,
   FaCalendarAlt,
   FaTag,
 } from "react-icons/fa";
 
 const CarCard = ({ car }) => {
-  const { rates } = car;
-  const getRateDisplay = () => {
-    if (rates.monthly) {
-      return `${rates.monthly.toLocaleString()}/mo`;
-    } else if (rates.weekly) {
-      return `${rates.weekly.toLocaleString()}/wk`;
-    } else if (rates.nightly) {
-      return `${rates.nightly.toLocaleString()}/night`;
-    }
-  };
+  // const { rates } = car;
+  // const getRateDisplay = () => {
+  //   if (rates.monthly) {
+  //     return `${rates.monthly.toLocaleString()}/mo`;
+  //   } else if (rates.weekly) {
+  //     return `${rates.weekly.toLocaleString()}/wk`;
+  //   } else if (rates.nightly) {
+  //     return `${rates.nightly.toLocaleString()}/night`;
+  //   }
+  // };
   return (
     <div className="rounded-xl shadow-md relative">
       <Link href={`/cars/${car._id}`}>

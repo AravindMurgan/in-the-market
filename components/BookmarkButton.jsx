@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 
 const BookmarkButton = ({property}) => {
     const [isBookmarked,setIsBookmarked]=useState(null)
+    // eslint-disable-next-line no-unused-vars
     const [loading,setLoading]=useState(true)
     const {data:session}=useSession();
     const userId = session?.user?.id;
@@ -27,7 +28,9 @@ const BookmarkButton = ({property}) => {
           
       })
 
-    },[property._id,userId,checkBookmarkStatus])
+      //[property._id,userId,checkBookmarkStatus])
+      //ive removed as per eslint config. if something goes wrong add it again
+    },[property._id,userId])
 
     const handleClick =async()=>{
         if(!userId){

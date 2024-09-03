@@ -2,6 +2,7 @@ import SearchForm from "@/components/PropertySearchForm";
 import connectDB from "@/config/database";
 import Cars from "@/components/Cars";
 import Car from "@/models/Car";
+import Pagination from "@/components/Pagination";
 
 // NOTE: this is a server component so we can use the url search parameters here
 // to query our database directly and then pass the properties to our Properties
