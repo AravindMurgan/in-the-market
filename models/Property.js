@@ -49,6 +49,10 @@ const PropertySchema = new Schema(
         type: String,
       },
     ],
+    price:{
+      type: Number,
+      required: true,
+    },
     rates: {
       nightly: {
         type: Number,

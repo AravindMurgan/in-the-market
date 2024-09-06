@@ -6,7 +6,7 @@ import PropertySearchForm from '@/components/PropertySearchForm';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import getPropertiesQueryResults from '@/app/actions/getPropertiesQueryResults';
-import { Checkbox } from '@nextui-org/react';
+import Sidebar from '@/components/Sidebar';
 
 
 // import getPropertiesQueryResults from '@/app/actions/getpropertiesQueryResults';
@@ -62,11 +62,8 @@ function SearchResultsPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Sidebar */}
-            <aside className="col-span-1 bg-gray-100 p-4">
-              <h2 className="text-xl mb-4">Filters</h2>
-              {/* Add your filter components here */}
-              <p>Filter options go here</p>
-              <Checkbox defaultSelected>Option</Checkbox>
+            <aside className="col-span-1 bg-gray-50 p-4">
+                <Sidebar properties={properties} setProperties={setProperties}/>
             </aside>
   
             {/* Main Content */}

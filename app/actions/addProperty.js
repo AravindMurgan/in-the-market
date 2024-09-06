@@ -37,6 +37,7 @@ async function addProperty(formData) {
     baths: formData.get("baths"),
     square_feet: formData.get("square_feet"),
     amenities,
+    price: formData.get("price"),
     rates: {
       weekly: formData.get("rates.weekly"),
       monthly: formData.get("rates.monthly"),
