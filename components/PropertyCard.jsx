@@ -11,15 +11,15 @@ import {
 
 const PropertyCard = ({ property }) => {
   const { rates } = property;
-  const getRateDisplay = () => {
-    if (rates.monthly) {
-      return `${rates.monthly.toLocaleString()}/mo`;
-    } else if (rates.weekly) {
-      return `${rates.weekly.toLocaleString()}/wk`;
-    } else if (rates.nightly) {
-      return `${rates.nightly.toLocaleString()}/night`;
-    }
-  };
+  // const getRateDisplay = () => {
+  //   if (rates.monthly) {
+  //     return `${rates.monthly.toLocaleString()}/mo`;
+  //   } else if (rates.weekly) {
+  //     return `${rates.weekly.toLocaleString()}/wk`;
+  //   } else if (rates.nightly) {
+  //     return `${rates.nightly.toLocaleString()}/night`;
+  //   }
+  // };
   return (
     <div className={`rounded-xl shadow-md relative ${property.visibility ? 'hidden':''}`}>
       <Link href={`/properties/${property._id}`}>

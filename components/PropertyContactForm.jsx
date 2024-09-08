@@ -1,9 +1,8 @@
 'use client';
-import { FaPaperPlane } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import addMessage from '@/app/actions/addMessage';
-import { useFormStatus, useFormState } from 'react-dom';
+import {  useFormState } from 'react-dom';
 import { useEffect } from 'react';
 import SubmitMessageButton from './SubmitMessageButton';
 

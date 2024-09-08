@@ -35,6 +35,7 @@ const Sidebar = ({properties,setProperties}) => {
         }
 
         
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[price])
 
     useEffect(()=>{
