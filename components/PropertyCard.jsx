@@ -21,7 +21,7 @@ const PropertyCard = ({ property }) => {
     }
   };
   return (
-    <div className="rounded-xl shadow-md relative">
+    <div className={`rounded-xl shadow-md relative ${property.visibility ? 'hidden':''}`}>
       <Link href={`/properties/${property._id}`}>
         <Image
           src={property.images[0]}

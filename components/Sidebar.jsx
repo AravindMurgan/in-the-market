@@ -1,7 +1,6 @@
 import { amenities } from "@/data/ameneties";
 import { BATH_SCORE, BED_SCORE, SQUARE_FEET_SCORE } from "@/utils/priortiyScores";
 import { Button, Chip, Input, Select, SelectItem, Slider } from "@nextui-org/react";
-import { set } from "mongoose";
 import { useEffect, useState } from "react";
 
 const Sidebar = ({properties,setProperties}) => {
@@ -15,31 +14,37 @@ const Sidebar = ({properties,setProperties}) => {
         max:0
     });
 
-    useEffect(() => {
-       
-    }, [selectedAmenities]);
 
     useEffect(()=>{
 
         const filterPropertiesByPrice = (properties, maxPrice) => {
-            return properties.filter((property) => property.price <= maxPrice);
+             properties.filter((property) => property.price <= maxPrice);
+
+             const results = properties.map((property) => {
+                if(property.price <= maxPrice){
+                    return {...property,visibility:false};
+                }else{
+                    return {...property,visibility:true};
+                }
+             })
+            return results;
         };
-        console.log('PRICE',price)
         if(price){
-           setProperties(filterPropertiesByPrice(properties, price));
+            const sortPropertiesByPrice = filterPropertiesByPrice(properties, price).sort((a,b)=> a.price - b.price);
+           setProperties(sortPropertiesByPrice);
         }
 
         
     },[price])
 
-    // useEffect(()=>{
-    //     const getMinMaxPrice = (properties) => {
-    //         const prices = properties.map((property) => property.price);
-    //         return [Math.min(...prices), Math.max(...prices)];
-    //       }
-    //    const [minPrice, maxPrice] = getMinMaxPrice(properties);
-    //    setMinMaxPrice([minPrice, maxPrice]);
-    // },[properties])
+    useEffect(()=>{
+        const getMinMaxPrice = (properties) => {
+            const prices = properties.map((property) => property.price);
+            return [Math.min(...prices), Math.max(...prices)];
+          }
+       const [minPrice, maxPrice] = getMinMaxPrice(properties);
+       setMinMaxPrice([minPrice, maxPrice]);
+    },[properties])
 
      // Handle priority change for an amenity
   const handlePriorityChange = (amenityKey, priority) => {
@@ -213,7 +218,7 @@ const Sidebar = ({properties,setProperties}) => {
           step={200}
           maxValue={190000}
           minValue={50000}
-          defaultValue={[minMaxPirce.min ? minMaxPirce.min:50000, minMaxPirce.max ? minMaxPirce.max:190000]}
+          defaultValue={ minMaxPirce.min && minMaxPirce.max ? [minMaxPirce.min, minMaxPirce.max]:[50000, 190000]}
           formatOptions={{ style: "currency", currency: "GBP" }}
           className='max-w-full text-2xl'
           classNames={{
