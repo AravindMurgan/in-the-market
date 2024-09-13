@@ -3,6 +3,7 @@ import Properties from "@/components/Properties";
 import Property from "@/models/Property";
 import connectDB from "@/config/database";
 import Pagination from "@/components/Pagination";
+import { convertToObjectWithJSON } from "@/utils/convertToObjectWithJSON";
 
 // NOTE: this is a server component so we can use the url search parameters here
 // to query our database directly and then pass the properties to our Properties
@@ -12,11 +13,18 @@ import Pagination from "@/components/Pagination";
 const PropertiesPage = async ({ searchParams: { pageSize = 6, page = 1 } }) => {
   await connectDB();
   const skip = (page - 1) * pageSize;
+  console.log('SKIP::::',skip);
+
 
   const total = await Property.countDocuments({});
-  const properties = await Property.find({}).skip(skip).limit(pageSize);
-
+  let properties = await Property.find({}).skip(skip).limit(pageSize);
+  const data = properties.map((property) => convertToObjectWithJSON(property));
   const showPagination = total > pageSize;
+
+  console.log('page::::',page);
+  console.log('pageSize::::',pageSize);
+  console.log('total::::',total);
+
   return (
     <>
       <section className="bg-blue-700 py-4">
@@ -25,13 +33,13 @@ const PropertiesPage = async ({ searchParams: { pageSize = 6, page = 1 } }) => {
         </div>
       </section>
       <Properties
-        properties={properties}
+        properties={data}
         total={total}
         page={parseInt(page)}
         pageSize={parseInt(pageSize)}
       />
       {showPagination && (
-        <Pagination page={page} pageSize={pageSize} totalItems={total} />
+        <Pagination page={parseInt(page)} pageSize={parseInt(pageSize)} totalItems={total} />
       )}
     </>
   );

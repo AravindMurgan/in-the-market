@@ -1,7 +1,7 @@
 "use client"
 import PropertyCard from "@/components/PropertyCard";
 import Sidebar from "./Sidebar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // NOTE: This has been changed to a server component and now receives props from
 // the page parent so no need to make a fetch request to an API route handler.
@@ -9,6 +9,11 @@ import { useState } from "react";
 ///properties:propertiesData, total, page, pageSize, removing for eslint
 const Properties = ({ properties:propertiesData }) => {
   const [properties, setProperties] = useState(propertiesData);
+
+  useEffect(() => {
+    setProperties(propertiesData);
+  }, [propertiesData]); 
+
   return (
     <section className='px-4 py-6'>
       <div className='container-xl lg:container m-auto px-4 py-6'>
@@ -17,7 +22,7 @@ const Properties = ({ properties:propertiesData }) => {
         ) : (
           <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
             {/* Sidebar */}
-            <aside className='col-span-1 bg-gray-50 p-4'>
+            <aside className='col-span-1 bg-gray-50 p-4 sticky top-0 h-screen overflow-y-auto'>
               <Sidebar properties={properties} setProperties={setProperties} />
             </aside>
 

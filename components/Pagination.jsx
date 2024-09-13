@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Pagination = ({ page, pageSize, totalItems }) => {
   const totalPages = Math.ceil(totalItems / pageSize);
-
+  console.log("TYPE::::",typeof page);
   return (
     <section className='container mx-auto flex justify-center items-center my-8'>
       {page > 1 ? (
@@ -19,7 +19,7 @@ const Pagination = ({ page, pageSize, totalItems }) => {
       {page < totalPages ? (
         <Link
           className='ml-2 px-2 py-1 border border-gray-300 rounded'
-          href={`/properties?page=${page + 1}`}
+          href={`/properties?page=${page+ 1}`}
         >
           Next
         </Link>
