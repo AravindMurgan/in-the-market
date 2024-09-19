@@ -33,9 +33,14 @@ const PropertyCard = ({ property }) => {
         />
       </Link>
       <div className="p-4">
-        <div className="text-left md:text-center lg:text-left mb-6">
+        <div className="text-left md:text-center lg:text-left flex justify-between items-center mb-6">
           <div className="text-gray-600">{property.type}</div>
-          <h3 className="text-xl font-bold"></h3>
+          {property?.score && property.score >=85 ?<span className="text-success-600">{Math.round(property.score * 100) / 100
+          }% Match</span>:''}
+          {property?.score && (property.score >= 75 && property.score < 85) ?<span className="text-warning-600">{Math.round(property.score * 100) / 100
+          }% Match</span>:''}
+          {property?.score && (property.score < 75) ?<span className="text-danger-600">{Math.round(property.score * 100) / 100
+          }% Match</span>:''}
         </div>
         <h3
           className="absolute top-[10px] right-[10px]

@@ -15,10 +15,10 @@ import { useEffect, useState } from "react";
 import AmenitiesSelection from "./AmenitiesSelection";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 
-const Sidebar = ({ properties, setProperties }) => {
-  const [beds, setBeds] = useState(0);
-  const [baths, setBaths] = useState(0);
-  const [squareFeet, setSquareFeet] = useState(0);
+const Sidebar = ({ properties, setProperties ,setMatchFound}) => {
+  const [beds, setBeds] = useState('');
+  const [baths, setBaths] = useState('');
+  const [squareFeet, setSquareFeet] = useState('');
   // eslint-disable-next-line no-unused-vars
   const [selectedAmenitiesWithPriority, setSelectedAmenitiesWithPriority] = useState({});
   const [price, setPrice] = useState(190000);
@@ -27,6 +27,11 @@ const Sidebar = ({ properties, setProperties }) => {
     max: 0,
   });
   // const [isEnablePriority, setIsEnablePriority] = useState(false);
+  const [errors, setErrors] = useState({
+    beds: "",
+    baths: "",
+    squareFeet: "",
+  });
 
   useEffect(() => {
     const filterPropertiesByPrice = (properties, maxPrice) => {
@@ -62,42 +67,54 @@ const Sidebar = ({ properties, setProperties }) => {
     setMinMaxPrice([minPrice, maxPrice]);
   }, [properties]);
 
-  // Handle priority change for an amenity
-  // const handlePriorityChange = (amenityKey, priority) => {
-  //   if (typeof priority === "string") {
-  //     setSelectedAmenities((prev) => ({
-  //       ...prev,
-  //       [amenityKey]: Number(priority), // Update the priority for the specific amenity
-  //     }));
-  //   }
-  // };
+  const validateForm = () => {
+    const newErrors = {};
+    
+    // Email validation
+    if (!beds) {
+      newErrors.beds = "Beds are required";
+    }
 
-  // const handleAmenitiesChange = (items) => {
-  //   console.log(items);
-  //   setIsEnablePriority(!isEnablePriority);
-  // };
+    // Password validation
+    if (!baths) {
+      newErrors.baths = "Baths are required";
+    }
+
+    // Confirm Password validation
+    if (!squareFeet || squareFeet <= 0) {
+      newErrors.squareFeet = "Square Feet is required";
+    }
+    if(Object.keys(selectedAmenitiesWithPriority).length <=0){
+      newErrors.amenities = "At least one amenity must be selected";
+    }
+
+    setErrors(newErrors);
+
+    // If there are no errors, return true (form is valid)
+    return Object.keys(newErrors).length === 0;
+  };
 
   // Function to rank and filter properties based on user selections
   const onClickRankProperties = () => {
+    if(!validateForm()) return; // Validate the form before proceeding
     const filteredProperties = properties.map((property) => {
       let score = 0;
       let maxScore = 0;
-      debugger;
 
       // 1. Score for Beds
-      if (property.beds >= beds) {
+      if (property.beds >= Number(beds)) {
         score += BED_SCORE; // Full points for meeting or exceeding bed requirements
       }
       maxScore += BED_SCORE;
 
       // 2. Score for Baths
-      if (property.baths >= baths) {
+      if (property.baths >= Number(baths)) {
         score += BATH_SCORE; // Full points for meeting or exceeding bath requirements
       }
       maxScore += BATH_SCORE;
 
       // 3. Score for Square Feet
-      if (property.square_feet >= squareFeet) {
+      if (property.square_feet >= Number(squareFeet)) {
         score += SQUARE_FEET_SCORE; // Full points for meeting or exceeding square feet
       }
       maxScore += SQUARE_FEET_SCORE;
@@ -127,6 +144,17 @@ const Sidebar = ({ properties, setProperties }) => {
     // Update the properties list with the ranked properties
     console.log(sortedProperties);
     setProperties(sortedProperties);
+    const isMatchFound = sortedProperties.find((property) => property.score === 100);
+    if (isMatchFound) {
+      setMatchFound(true);
+    }else{
+      setMatchFound(false);
+    }
+    setErrors({});
+    setSelectedAmenitiesWithPriority({});
+    setBeds(null);
+    setBaths('');
+    setSquareFeet('');
   };
   return (
     <div className='flex flex-col gap-10'>
@@ -139,16 +167,19 @@ const Sidebar = ({ properties, setProperties }) => {
       </div>
 
       <div>
-        <label htmlFor='Beds'>Beds</label>
+        <label htmlFor='Beds'>Beds {<span className="text-red-600">*</span>}</label>
         <Select
           className='max-w-xs'
           aria-label='Beds'
           value={beds}
-          onChange={(e) => setBeds(Number(e.target.value))}
-        >
-          <SelectItem key={1}>1</SelectItem>
-          <SelectItem key={2}>2</SelectItem>
-          <SelectItem key={3}>3+</SelectItem>
+          onChange={(e) => setBeds(e.target.value)}
+          isInvalid={errors?.beds?.length > 0}
+          errorMessage={errors?.beds?.length > 0 ? errors.beds : ""}
+        > 
+           <SelectItem key="" value="">Select Beds</SelectItem>
+          <SelectItem key={1} value={'1'}>1</SelectItem>
+          <SelectItem key={2} value={'2'}>2</SelectItem>
+          <SelectItem key={3} value={'3'}>3+</SelectItem>
         </Select>
       </div>
 
@@ -158,11 +189,14 @@ const Sidebar = ({ properties, setProperties }) => {
           className='max-w-full'
           aria-label='Baths'
           value={baths}
-          onChange={(e) => setBaths(Number(e.target.value))}
+          onChange={(e) => setBaths(e.target.value)}
+          isInvalid={errors?.baths?.length > 0}
+          errorMessage={errors?.baths?.length > 0 ? errors.baths : ""}
         >
-          <SelectItem key={1}>1</SelectItem>
-          <SelectItem key={2}>2</SelectItem>
-          <SelectItem key={3}>3+</SelectItem>
+          <SelectItem key="" value="">Select Baths</SelectItem>
+          <SelectItem key={1}  value={'1'}>1</SelectItem>
+          <SelectItem key={2} value={'2'}>2</SelectItem>
+          <SelectItem key={3}  value={'3'}>3+</SelectItem>
         </Select>
       </div>
 
@@ -172,11 +206,14 @@ const Sidebar = ({ properties, setProperties }) => {
           type='number'
           placeholder='Enter Your Square Feet'
           value={squareFeet}
-          onValueChange={(val) => setSquareFeet(Number(val))}
+          onValueChange={(val) => setSquareFeet(val)}
+          isInvalid={errors?.squareFeet?.length > 0}
+          errorMessage={errors?.squareFeet?.length > 0 ? errors.squareFeet : ""}
         />
       </div>
       <div>
-        <Accordion>
+        <p className="text-tiny text-red-500">{errors?.amenities?.length >0 ? errors.amenities :''}</p>
+        <Accordion err>
           <AccordionItem
             key='1'
             aria-label='Amenities'
