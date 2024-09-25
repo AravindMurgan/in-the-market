@@ -7,7 +7,7 @@ import { FaBookmark, FaCheck } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 
-const BookmarkButton = ({property}) => {
+const BookmarkButton = ({data}) => {
     const [isBookmarked,setIsBookmarked]=useState(null)
     // eslint-disable-next-line no-unused-vars
     const [loading,setLoading]=useState(true)
@@ -20,7 +20,7 @@ const BookmarkButton = ({property}) => {
         return;
       }
 
-      checkBookmarkStatus(property._id).then(res=> {
+      checkBookmarkStatus(data._id).then(res=> {
         if(res.error) toast.error(res.error)
         if(res.isBookmarked) setIsBookmarked(res.isBookmarked)
 
@@ -28,9 +28,9 @@ const BookmarkButton = ({property}) => {
           
       })
 
-      //[property._id,userId,checkBookmarkStatus])
+      //[data._id,userId,checkBookmarkStatus])
       //ive removed as per eslint config. if something goes wrong add it again
-    },[property._id,userId])
+    },[data._id,userId])
 
     const handleClick =async()=>{
         if(!userId){
@@ -39,7 +39,7 @@ const BookmarkButton = ({property}) => {
         }
 
         try {
-            const res = await bookmarkProperty(property._id);
+            const res = await bookmarkProperty(data._id);
             setIsBookmarked(res.isBookmarked);
             toast.success(res.message);
         } catch (error) {
