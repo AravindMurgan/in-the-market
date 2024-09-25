@@ -1,11 +1,11 @@
 "use client";
 import getCarsData from "@/app/actions/getCarsData";
 import BookmarkButton from "@/components/BookmarkButton";
-import PropertyContactForm from "@/components/PropertyContactForm";
-import PropertyDetails from "@/components/PropertyDetails";
+import CarContactForm from "@/components/CarContactForm";
+import CarDetails from "@/components/CarDetails";
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyImages from "@/components/PropertyImages";
-import ShareButtons from "@/components/ShareButtons";
+import ShareButtonCars from "@/components/ShareButtonCars";
 // import { fetchProperty } from "@/utils/requests";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -20,8 +20,8 @@ const CarPage = () => {
     if (!id) return;
     const fetchPropertyData = async () => {
       try {
-        const property = await getCarsData(id);
-        setCarData(property);
+        const carData = await getCarsData(id);
+        setCarData(carData);
       } catch (error) {
         // throw new Error("Error fetching property.")
         console.log('Error fetching property')
@@ -55,11 +55,11 @@ const CarPage = () => {
           <section className="bg-blue-50">
             <div className="container m-auto py-10 px-6">
               <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
-                <PropertyDetails carData={carData} />
+                <CarDetails car={carData} />
                 <aside className="space-y-4">
-                <BookmarkButton carData={carData} />
-                <ShareButtons carData={carData} PUBLIC_DOMAIN={process.env.NEXT_PUBLIC_DOMAIN} />
-                <PropertyContactForm carData={carData} />
+                <BookmarkButton data={carData} />
+                <ShareButtonCars car={carData} PUBLIC_DOMAIN={process.env.NEXT_PUBLIC_DOMAIN}/>
+                <CarContactForm car={carData} />
                 </aside>
               </div>
             </div>
