@@ -56,7 +56,7 @@ const PropertyPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
                 <PropertyDetails property={property} />
                 <aside className="space-y-4">
-                <BookmarkButton property={property} />
+                <BookmarkButton data={property} />
                 <ShareButtons property={property} PUBLIC_DOMAIN={process.env.NEXT_PUBLIC_DOMAIN} />
                 <PropertyContactForm property={property} />
                 </aside>
