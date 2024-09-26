@@ -2,9 +2,10 @@
 
 import connectDB from '@/config/database';
 import Car from '@/models/Car';
-import { convertToObjectWithJSON } from '@/utils/convertToObjectWithJSON';
+import { convertToSerializeableObject } from '@/utils/convertToObject';
+// import { convertToObjectWithJSON } from '@/utils/convertToObjectWithJSON';
 
-async function getCarsData(id) {
+async function fetchCars() {
   await connectDB();
 
 //   const sessionUser = await getSessionUser();
@@ -16,11 +17,11 @@ async function getCarsData(id) {
 //   const { userId } = sessionUser;
 
   // Find user in database
-  let data = await Car.findById(id);
+  let data = await Car.find({});
   console.log('data', data);
-  data = convertToObjectWithJSON(data);
+  data = data.map(convertToSerializeableObject)
 
   return data;
 }
 
-export default getCarsData;
+export default fetchCars;
