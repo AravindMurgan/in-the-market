@@ -3,6 +3,7 @@ import connectDB from "@/config/database";
 import Cars from "@/components/Cars";
 import Car from "@/models/Car";
 import Pagination from "@/components/Pagination";
+import { convertToObjectWithJSON } from "@/utils/convertToObjectWithJSON";
 
 // NOTE: this is a server component so we can use the url search parameters here
 // to query our database directly and then pass the properties to our Properties
@@ -16,6 +17,7 @@ const CarsPage = async ({ searchParams: { pageSize = 6, page = 1 } }) => {
 
   const total = await Car.countDocuments({});
   const cars = await Car.find({}).skip(skip).limit(pageSize);
+  const data = cars.map((property) => convertToObjectWithJSON(property));
 
   const showPagination = total > pageSize;
   return (
@@ -26,13 +28,13 @@ const CarsPage = async ({ searchParams: { pageSize = 6, page = 1 } }) => {
         </div>
       </section>
       <Cars
-        cars={cars}
+        cars={data}
         total={total}
         page={parseInt(page)}
         pageSize={parseInt(pageSize)}
       />
       {showPagination && (
-        <Pagination page={page} pageSize={pageSize} totalItems={total} />
+        <Pagination page={page} pageSize={pageSize} totalItems={total} identifier={'cars'} />
       )}
     </>
   );

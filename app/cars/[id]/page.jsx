@@ -47,7 +47,7 @@ const CarPage = () => {
                 href="/"
                 className="text-blue-500 hover:text-blue-600 flex items-center"
               >
-                <FaArrowLeft className="mr-2" /> Back to Properties
+                <FaArrowLeft className="mr-2" /> Back to Cars
               </a>
             </div>
           </section>
@@ -57,7 +57,7 @@ const CarPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
                 <CarDetails car={carData} />
                 <aside className="space-y-4">
-                <BookmarkButton data={carData} />
+                <BookmarkButton data={carData} identifier={'Car'}/>
                 <ShareButtonCars car={carData} PUBLIC_DOMAIN={process.env.NEXT_PUBLIC_DOMAIN}/>
                 <CarContactForm car={carData} />
                 </aside>
