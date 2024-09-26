@@ -39,7 +39,7 @@ const PropertiesPage = async ({ searchParams: { pageSize = 6, page = 1 } }) => {
         pageSize={parseInt(pageSize)}
       />
       {showPagination && (
-        <Pagination page={parseInt(page)} pageSize={parseInt(pageSize)} totalItems={total} />
+        <Pagination page={parseInt(page)} pageSize={parseInt(pageSize)} totalItems={total} identifier={'properties'} />
       )}
     </>
   );

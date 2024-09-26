@@ -5,6 +5,8 @@ import connectDB from '@/config/database';
 import { getSessionUser } from '@/utils/getSessionUser';
 import { convertToSerializeableObject } from '@/utils/convertToObject';
 import Property from '@/models/Property';
+import Car from '@/models/Car';
+import ProfileCars from '@/components/ProfileCars';
 
 // NOTE: This component has been changed to a server component and now fetches
 // the users properties by querying the database directly.
@@ -25,6 +27,9 @@ const ProfilePage = async () => {
 
   const propertiesDocs = await Property.find({ owner: userId }).lean();
   const properties = propertiesDocs.map(convertToSerializeableObject);
+
+  const carsDocs = await Car.find({ owner: userId }).lean();
+  const cars = carsDocs.map(convertToSerializeableObject);
   return (
     <section className='bg-blue-50'>
       <div className='container m-auto py-24'>
@@ -52,12 +57,22 @@ const ProfilePage = async () => {
             </div>
 
             <div className='md:w-3/4 md:pl-4'>
-              <h2 className='text-xl font-semibold mb-4'>Your Listings</h2>
+              <div>
+              <h2 className=' bg-black text-white text-xl font-semibold mb-4 p-2 rounded-lg'>Your Property Listings</h2>
               {properties.length === 0 ? (
                 <p>You have no property listings</p>
               ) : (
                 <ProfileProperties properties={properties} />
               )}
+              </div>
+              <div>
+              <h2 className=' bg-black text-white text-xl font-semibold mb-4 p-2 rounded-lg'>Your Cars Listings</h2>
+              {cars.length === 0 ? (
+                <p>You have no cars listings</p>
+              ) : (
+                <ProfileCars cars={cars} />
+              )}
+              </div>
             </div>
           </div>
         </div>

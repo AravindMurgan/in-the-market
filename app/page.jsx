@@ -1,9 +1,11 @@
 import CarInfoBoxes from "@/components/CarInfoBoxes";
 import FeaturedProperties from "@/components/FeaturedProperties";
 import Hero from "@/components/Hero";
+import HomeCars from "@/components/HomeCars";
 import HomeProperties from "@/components/HomeProperties";
 import InfoBoxes from "@/components/InfoBoxes";
 import connectDB from "@/config/database";
+import Car from "@/models/Car";
 import Property from "@/models/Property";
 import React from "react";
 
@@ -18,6 +20,9 @@ const page =async () => {
     is_featured: true,
   }).lean();
 
+  const carListings = await Car.find({
+    is_featured: true,
+  }).lean();
 
   return (
     <>
@@ -33,8 +38,8 @@ const page =async () => {
       {/* Luxury Cars */}
       <section className="mt-32">
         <CarInfoBoxes />
-        <FeaturedProperties data={listings} enitity="Cars"/>
-        <HomeProperties />
+        <FeaturedProperties data={carListings} enitity="Cars"/>
+        <HomeCars />
       </section>
 
 
