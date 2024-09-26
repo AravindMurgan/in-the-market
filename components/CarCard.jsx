@@ -23,7 +23,7 @@ const CarCard = ({ car }) => {
   //   }
   // };
   return (
-    <div className='rounded-xl shadow-md relative'>
+    <div className={`rounded-xl shadow-md relative ${car.visibility ? 'hidden':''}`}>
       <Link href={`/cars/${car._id}`}>
         <Image
           src={car.images[0]}

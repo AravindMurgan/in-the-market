@@ -1,3 +1,4 @@
+import FeaturedCarCard from './FeatureCarCard';
 import FeaturedPropertyCard from './FeaturedPropertyCard';
 
 const FeaturedProperties = ({data,enitity}) => {
@@ -13,9 +14,17 @@ const FeaturedProperties = ({data,enitity}) => {
           {`Featured ${enitity}`}
         </h2>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-          {data.map((item) => (
-            <FeaturedPropertyCard key={item._id} property={item} />
-          ))}
+         {
+          enitity === 'Properties' ? (
+            data.map((item) => (
+              <FeaturedPropertyCard key={item._id} property={item} />
+            ))
+          ):(
+            data.map((item) => (
+              <FeaturedCarCard key={item._id} car={item} />
+            ))
+          )
+         }
         </div>
       </div>
     </section>

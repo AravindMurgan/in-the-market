@@ -7,7 +7,8 @@ import { FaBookmark, FaCheck } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 
-const BookmarkButton = ({data}) => {
+const BookmarkButton = ({data,identifier}) => {
+  console.log('KEY::::',identifier)
     const [isBookmarked,setIsBookmarked]=useState(null)
     // eslint-disable-next-line no-unused-vars
     const [loading,setLoading]=useState(true)
@@ -65,7 +66,7 @@ const BookmarkButton = ({data}) => {
       return (
         <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center"
         onClick={handleClick}>
-         <FaBookmark className="mr-2" /> Bookmark Property
+         <FaBookmark className="mr-2" /> {`Bookmark ${identifier&& identifier}`}
        </button>
       )
     }

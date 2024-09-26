@@ -1,0 +1,123 @@
+'use client';
+import { toast } from 'react-toastify';
+import { useSession } from 'next-auth/react';
+import addMessage from '@/app/actions/addMessage';
+import {  useFormState } from 'react-dom';
+import { useEffect } from 'react';
+import SubmitMessageButton from './SubmitMessageButton';
+
+// NOTE: Using a separate component for our submit button allows us to use the
+// useFormStatus hook to give the user feedback about sending a message, in the
+// button itself.
+// https://react.dev/reference/react-dom/hooks/useFormStatus
+
+
+// NOTE: This component has been changed to use server actions to send a message
+// to another user.
+
+const CarContactForm = ({ car }) => {
+  const { data: session } = useSession();
+
+  // NOTE: use the useFormState hook to know when form has submitted.
+  // https://react.dev/reference/react-dom/hooks/useFormState
+  const [submitState, formAction] = useFormState(addMessage, {});
+
+  useEffect(() => {
+    if (submitState.error) toast.error(submitState.error);
+    if (submitState.submitted) toast.success('Message sent successfully');
+  }, [submitState]);
+
+  return (
+    <div className='bg-white p-6 rounded-lg shadow-md'>
+      <h3 className='text-xl font-bold mb-6'>Contact Car Owner</h3>
+      {!session ? (
+        <p>You must be logged in to send a message</p>
+      ) : submitState.submitted ? (
+        <p className='text-green-500 mb-4'>
+          Your message has been sent successfully
+        </p>
+      ) : (
+        <form action={formAction}>
+          {/* NOTE: Here we have two hidden inputs to add the car id and the owner to our FormData submission */}
+          <input
+            type='hidden'
+            id='car'
+            name='car'
+            defaultValue={car._id}
+          />
+          <input
+            type='hidden'
+            id='recipient'
+            name='recipient'
+            defaultValue={car.owner}
+          />
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='name'
+            >
+              Name:
+            </label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id='name'
+              name='name'
+              type='text'
+              placeholder='Enter your name'
+              required
+            />
+          </div>
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='email'
+            >
+              Email:
+            </label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id='email'
+              name='email'
+              type='email'
+              placeholder='Enter your email'
+              required
+            />
+          </div>
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='phone'
+            >
+              Phone:
+            </label>
+            <input
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+              id='phone'
+              name='phone'
+              type='text'
+              placeholder='Enter your phone number'
+            />
+          </div>
+          <div className='mb-4'>
+            <label
+              className='block text-gray-700 text-sm font-bold mb-2'
+              htmlFor='message'
+            >
+              Message:
+            </label>
+            <textarea
+              className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 h-44 focus:outline-none focus:shadow-outline'
+              id='message'
+              name='message'
+              placeholder='Enter your message'
+            ></textarea>
+          </div>
+          <div>
+            <SubmitMessageButton />
+          </div>
+        </form>
+      )}
+    </div>
+  );
+};
+export default CarContactForm;

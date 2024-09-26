@@ -1,7 +1,7 @@
 'use client';
 //import { toast } from 'react-toastify';
 import SubmitButton from './SubmitButton';
-import { carBrands, fuelType } from '@/data/carData';
+import { carBrands, fuelTypeData } from '@/data/carData';
 import addCar from '@/app/actions/addCar';
 
 const CarAddForm = () => {
@@ -94,7 +94,7 @@ const CarAddForm = () => {
           required
         >
            {
-            fuelType.map((type,idx)=>  <option key={idx} value={type}>{type}</option>)
+            fuelTypeData.map((type,idx)=>  <option key={idx} value={type}>{type}</option>)
           }
         </select>
       </div>

@@ -1,24 +1,26 @@
-'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const PropertySearchForm = () => {
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState("");
   // const [propertyType, setPropertyType] = useState('All');
-  const [zipCode, setZipCode] = useState('');
+  const [zipCode, setZipCode] = useState("");
+  const [type, setType] = useState("properties");
 
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (location === '' && zipCode === '') {
-      router.push('/properties');
+    if (location === "" && zipCode === "" && type === "properties") {
+      router.push("/properties");
+    } else if (location === "" && zipCode === "" && type === "cars") {
+      router.push("/cars");
     } else {
-
       const query = `?location=${location}&zipCode=${zipCode}`;
 
-      router.push(`/properties/search-results${query}`);
+      router.push(`/${type}/search-results${query}`);
     }
   };
 
@@ -41,7 +43,7 @@ const PropertySearchForm = () => {
         />
       </div>
       <div className='w-full md:w-2/5 md:pl-2'>
-      <label htmlFor='zipcode' className='sr-only'>
+        <label htmlFor='zipcode' className='sr-only'>
           Zipcode
         </label>
         <input
@@ -52,26 +54,24 @@ const PropertySearchForm = () => {
           value={zipCode}
           onChange={(e) => setZipCode(e.target.value)}
         />
-        {/* <label htmlFor='property-type' className='sr-only'>
-          Property Type
-        </label>
-        <select
-          id='property-type'
-          className='w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500'
-          value={propertyType}
-          onChange={(e) => setPropertyType(e.target.value)}
-        >
-          <option value='All'>All</option>
-          <option value='Apartment'>Apartment</option>
-          <option value='Studio'>Studio</option>
-          <option value='Condo'>Condo</option>
-          <option value='House'>House</option>
-          <option value='Cabin Or Cottage'>Cabin or Cottage</option>
-          <option value='Loft'>Loft</option>
-          <option value='Room'>Room</option>
-          <option value='Other'>Other</option>
-        </select> */}
+  
       </div>
+      <div className='w-full md:w-2/5 md:pr-2 mb-4 md:mb-0 md:ml-4'>
+          <label htmlFor='property-type' className='sr-only'>
+            Select Property or Car
+          </label>
+          <select
+            id='type'
+            className='w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500'
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <option value='properties' defaultValue>
+              Properties
+            </option>
+            <option value='cars'>Cars</option>
+          </select>
+        </div>
       <button
         type='submit'
         className='md:ml-4 mt-4 md:mt-0 w-full md:w-auto px-6 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-500'

@@ -6,7 +6,7 @@ import * as maptilersdk from '@maptiler/sdk';
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import Spinner from "@/components/Spinner";
  
-export default function PropertyMap({ property }) {
+export default function PropertyMap({ data }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lat, setLat] = useState(null);
@@ -18,7 +18,7 @@ export default function PropertyMap({ property }) {
     async function fetchCoordinates() {
       opencage
         .geocode({
-          q: `${property.location.street} ${property.location.city} ${property.location.state} ${property.location.zipcode}`,
+          q: `${data.location.street} ${data.location.city} ${data.location.state} ${data.location.zipcode}`,
           key: process.env.NEXT_PUBLIC_OPENCAGE_API_KEY,
           countrycode:'gb'
         })
