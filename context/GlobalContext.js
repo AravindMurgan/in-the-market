@@ -9,6 +9,7 @@ const GlobalContext = createContext();
 // Create a provider
 export function GlobalProvider({ children }) {
   const [unreadCount, setUnreadCount] = useState(0);
+  const [selectedFeaturesWithPriority, setSelectedFeaturesWithPriority] = useState({});
 
   const { data: session } = useSession();
 
@@ -29,6 +30,8 @@ export function GlobalProvider({ children }) {
       value={{
         unreadCount,
         setUnreadCount,
+        selectedFeaturesWithPriority,
+        setSelectedFeaturesWithPriority
       }}
     >
       {children}
