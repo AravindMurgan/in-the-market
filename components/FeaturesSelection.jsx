@@ -7,31 +7,31 @@ const FeaturesSelection = () => {
     const [selectedFeatures, setSelectedFeatures] = useState([]); // Track selected amenities for display
     const { selectedFeaturesWithPriority, setSelectedFeaturesWithPriority } = useGlobalContext(); // Get the context
     
-  const handleAmenityChange = (amenity) => {
+  const handleAmenityChange = (feature) => {
     setSelectedFeatures((prev) => {
-        const newSelection = prev.includes(amenity)
-          ? prev.filter((item) => item !== amenity) // If amenity exists, remove it
-          : [...prev, amenity]; // If amenity doesn't exist, add it
+        const newSelection = prev.includes(feature)
+          ? prev.filter((item) => item !== feature) // If feature exists, remove it
+          : [...prev, feature]; // If feature doesn't exist, add it
   
         return newSelection;
       });
 
       setSelectedFeaturesWithPriority((prev) => {
         const newSelectedFeatures = { ...prev };
-        if (newSelectedFeatures[amenity]) {
-          // Remove the amenity if already selected
-          delete newSelectedFeatures[amenity];
+        if (newSelectedFeatures[feature]) {
+          // Remove the feature if already selected
+          delete newSelectedFeatures[feature];
 
         } 
         return newSelectedFeatures;
       });
   };
   // Handle priority selection
-  const handlePriorityChange = (amenity, priority) => {
+  const handlePriorityChange = (feature, priority) => {
     if(priority === '') return; // If no priority selected, return
     setSelectedFeaturesWithPriority((prev) => ({
       ...prev,
-      [amenity]: Number(priority), // Update the priority for the specific amenity
+      [feature]: Number(priority), // Update the priority for the specific feature
     }));
   };
 
@@ -46,25 +46,25 @@ const FeaturesSelection = () => {
   return (
     <>
       <div className='mt-2 space-y-4'>
-        {/* Iterate over each amenity */}
-        {carFeatures.map((amenity) => (
+        {/* Iterate over each feature */}
+        {carFeatures.map((feature) => (
           <div
-            key={amenity.value}
+            key={feature}
             className='flex items-center justify-between'
           >
-            {/* Checkbox for amenity selection */}
+            {/* Checkbox for feature selection */}
             <Checkbox
-              isSelected={selectedFeatures.includes(amenity.value)}
-              onChange={() => handleAmenityChange(amenity.value)}
+              isSelected={selectedFeatures.includes(feature)}
+              onChange={() => handleAmenityChange(feature)}
             >
-              {amenity.value}
+              {feature}
             </Checkbox>
 
             {/* Dropdown for priority selection */}
-            {selectedFeatures.includes(amenity.value) && (
+            {selectedFeatures.includes(feature) && (
               <select
                 onChange={(e) =>
-                  handlePriorityChange(amenity.value, e.target.value)
+                  handlePriorityChange(feature, e.target.value)
                 }
                 className='border rounded p-1 text-sm'
               >
@@ -84,9 +84,9 @@ const FeaturesSelection = () => {
         {/* Display selected amenities with chips */}
         <div className='mt-4 flex flex-wrap gap-2'>
         {selectedFeaturesWithPriority &&
-         Object.entries(selectedFeaturesWithPriority).map(([amenity, priority]) => (
-          <Chip key={amenity}>
-            {amenity} - {priorities.find(p => p.value === priority)?.label || 'No priority'}
+         Object.entries(selectedFeaturesWithPriority).map(([feature, priority]) => (
+          <Chip key={feature}>
+            {feature} - {priorities.find(p => p.value === priority)?.label || 'No priority'}
           </Chip>
         ))}
         </div>

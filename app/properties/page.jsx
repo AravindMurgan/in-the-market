@@ -13,17 +13,11 @@ import { convertToObjectWithJSON } from "@/utils/convertToObjectWithJSON";
 const PropertiesPage = async ({ searchParams: { pageSize = 6, page = 1 } }) => {
   await connectDB();
   const skip = (page - 1) * pageSize;
-  console.log('SKIP::::',skip);
-
 
   const total = await Property.countDocuments({});
   let properties = await Property.find({}).skip(skip).limit(pageSize);
   const data = properties.map((property) => convertToObjectWithJSON(property));
   const showPagination = total > pageSize;
-
-  console.log('page::::',page);
-  console.log('pageSize::::',pageSize);
-  console.log('total::::',total);
 
   return (
     <>

@@ -55,7 +55,7 @@ const AdvancedCarSearch = ({fuelType,setFuelType,transmission,setTransmission,er
           {errors?.features?.length > 0 ? errors.features : ""}
         </p>
         <Accordion err>
-          <AccordionItem key='1' aria-label='Amenities' title='Amenities'>
+          <AccordionItem key='1' aria-label='Features' title='Features'>
             <FeaturesSelection />
           </AccordionItem>
         </Accordion>

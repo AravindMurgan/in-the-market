@@ -36,7 +36,7 @@ const AmenitiesSelection = ({ amenities,selectedAmenitiesWithPriority,setSelecte
   const priorities = [
     { label: "Must Have", value: 10 },
     { label: "Important", value: 7 },
-    { label: "Nice to Have", value: 4 },
+    { label: "Nice to Have", value: 3 },
     { label: "Not Important", value: 0 },
   ];
 

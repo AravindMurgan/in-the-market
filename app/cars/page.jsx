@@ -34,7 +34,7 @@ const CarsPage = async ({ searchParams: { pageSize = 6, page = 1 } }) => {
         pageSize={parseInt(pageSize)}
       />
       {showPagination && (
-        <Pagination page={page} pageSize={pageSize} totalItems={total} identifier={'cars'} />
+        <Pagination page={parseInt(page)} pageSize={parseInt(pageSize)} totalItems={total} identifier={'cars'} />
       )}
     </>
   );

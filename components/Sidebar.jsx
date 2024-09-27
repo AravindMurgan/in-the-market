@@ -96,6 +96,7 @@ const Sidebar = ({ properties, setProperties ,setMatchFound}) => {
 
   // Function to rank and filter properties based on user selections
   const onClickRankProperties = () => {
+    debugger;
     if(!validateForm()) return; // Validate the form before proceeding
     const filteredProperties = properties.map((property) => {
       let score = 0;
@@ -122,12 +123,15 @@ const Sidebar = ({ properties, setProperties ,setMatchFound}) => {
       // 4. Score for Amenities
       const amenityScores = selectedAmenitiesWithPriority;
       for (const amenity in amenityScores) {
-        if (property?.amenities.includes(amenity)) {
+        const cleanedAmenity = amenity.replace(/[^a-zA-Z]/g, '').toLowerCase();
+        const propertyAmenities = property?.amenities.map(a => a.replace(/[^a-zA-Z]/g, '').toLowerCase());
+        if (propertyAmenities.includes(cleanedAmenity)) {
           score += amenityScores[amenity]; // Add score based on the user's priority
         }
         maxScore += amenityScores[amenity]; // Max score includes all priority levels
       }
-
+      console.log('score',score);
+      console.log('maxScore',maxScore);
       // Normalize the score to get a percentage
       const finalScore = (score / maxScore) * 100;
       return {
@@ -150,11 +154,7 @@ const Sidebar = ({ properties, setProperties ,setMatchFound}) => {
     }else{
       setMatchFound(false);
     }
-    setErrors({});
-    setSelectedAmenitiesWithPriority({});
-    setBeds(null);
-    setBaths('');
-    setSquareFeet('');
+  
   };
   return (
     <div className='flex flex-col gap-10'>
