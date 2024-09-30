@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 
 
 const BookmarkButton = ({data,identifier}) => {
-  console.log('KEY::::',identifier)
     const [isBookmarked,setIsBookmarked]=useState(null)
     // eslint-disable-next-line no-unused-vars
     const [loading,setLoading]=useState(true)

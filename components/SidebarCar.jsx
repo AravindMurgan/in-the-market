@@ -193,7 +193,6 @@ const SidebarCar = ({ cars, setCars,setPerfectMatchCar}) => {
   // Function to rank and filter cars based on user selections
   const onClickRankCars = () => {
     if (!validateForm()) return; // Validate the form before proceeding
-    console.log(cars,selectedBrand,selectedModel,selectedYear);
     const findPerfectMatch = cars.find((car) => {
 
       return (
@@ -201,7 +200,6 @@ const SidebarCar = ({ cars, setCars,setPerfectMatchCar}) => {
         car.model === selectedModel 
       );
     });
-    console.log('findPerfectMatch',findPerfectMatch);
     if(findPerfectMatch && Object.keys(findPerfectMatch).length > 0){
       delete findPerfectMatch.score;
 

@@ -15,3 +15,26 @@ export const amenities = [
     { key: 'smart_tv', value: 'Smart TV' },
     { key: 'coffee_maker', value: 'Coffee Maker' }
   ];
+
+  export const cityScores = {
+    "London": 10,
+    "Edinburgh": 9,
+    "Oxford": 8,
+    "Cambridge": 8,
+    "Bath": 7,
+    "Windsor": 7,
+    "Manchester": 6,
+    "Bristol": 6,
+    "York": 6,
+    "Brighton": 5,
+    "Leeds": 5,
+    "Glasgow": 5,
+    "Liverpool": 4,
+    "Birmingham": 4,
+    "Cardiff": 4,
+    "Newcastle": 3,
+    "Sheffield": 3,
+    "Nottingham": 2,
+    "Leicester": 2,
+    "Aberdeen": 2
+};

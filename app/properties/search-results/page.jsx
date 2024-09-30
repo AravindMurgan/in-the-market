@@ -28,9 +28,6 @@ function SearchResultsPage() {
   useEffect( () => { 
     async function getPropertiesQueryResultsData(){
       const propertiesQueryResults = await getPropertiesQueryResults(location, zipCode);
-      // const propertiesData = convertToSerializeableObject(propertiesQueryResults);
-      // console.log(propertiesData);
-      console.log(propertiesQueryResults)
       setProperties(propertiesQueryResults);
   
     }
@@ -38,9 +35,6 @@ function SearchResultsPage() {
 
   }, [location,zipCode]);
 
-  // if(!isMounted){
-  //   return null;
-  // }
   return (
     <>
       <section className='bg-blue-700 py-4'>

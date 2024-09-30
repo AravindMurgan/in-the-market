@@ -23,7 +23,6 @@ export default function PropertyMap({ data }) {
           countrycode:'gb'
         })
         .then((data) => {
-          console.log(data);
           if (data.status.code === 200 && data.results.length > 0) {
             const place = data.results[0];
             setLat(place.geometry.lat);
@@ -35,7 +34,6 @@ export default function PropertyMap({ data }) {
           }
         })
         .catch((error) => {
-          // console.log(JSON.stringify(error));
           console.log('Error', error.message);
           setLoading(false);
           setGeoCodeError(true);

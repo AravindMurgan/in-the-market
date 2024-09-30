@@ -18,7 +18,6 @@ async function fetchCars() {
 
   // Find user in database
   let data = await Car.find({});
-  console.log('data', data);
   data = data.map(convertToSerializeableObject)
 
   return data;

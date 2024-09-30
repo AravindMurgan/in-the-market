@@ -4,7 +4,6 @@ import Property from "@/models/Property";
 export const GET = async ( request,{params} ) => {
   try {
     await connectDB();
-    console.log('PARAMS::',params)
 
     const property = await Property.findById( params.id);
 

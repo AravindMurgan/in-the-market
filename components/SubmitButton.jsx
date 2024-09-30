@@ -5,8 +5,8 @@ import { useFormStatus } from 'react-dom';
 // redirected by using a SubmitButton component that uses the useFormStatus hook
 
 function SubmitButton({
-  pendingText = 'Adding Property...',
-  text = 'Add Property',
+  pendingText = 'Adding Car...',
+  text = 'Add Car',
 }) {
   const status = useFormStatus();
   return (

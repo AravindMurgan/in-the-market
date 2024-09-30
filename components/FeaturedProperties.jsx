@@ -2,8 +2,6 @@ import FeaturedCarCard from './FeatureCarCard';
 import FeaturedPropertyCard from './FeaturedPropertyCard';
 
 const FeaturedProperties = ({data,enitity}) => {
-  console.log('enitity',enitity);
-
   // NOTE: don't use logical && for conditional rendering especially on the
   // length of an array - https://kentcdodds.com/blog/use-ternaries-rather-than-and-and-in-jsx
 

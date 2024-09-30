@@ -426,7 +426,10 @@ const CarAddForm = () => {
       </div>
 
       <div>
-        <SubmitButton />
+        <SubmitButton
+           pendingText='Updating Car...'
+          text='Update Car'
+        />
       </div>
     </form>
   );

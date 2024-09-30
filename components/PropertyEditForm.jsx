@@ -330,7 +330,7 @@ const PropertyEditForm = ({ property }) => {
           Rates (Leave blank if not applicable)
         </label>
         <div className='flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4'>
-          <div className='flex items-center'>
+          {/* <div className='flex items-center'>
             <label htmlFor='weekly_rate' className='mr-2'>
               Weekly
             </label>
@@ -364,6 +364,19 @@ const PropertyEditForm = ({ property }) => {
               name='rates.nightly'
               className='border rounded w-full py-2 px-3'
               defaultValue={property.rates.nightly}
+            />
+          </div>
+        </div> */}
+          <div className='flex items-center'>
+          <label htmlFor='price' className='mr-2'>
+              Price
+            </label>
+            <input
+              type='number'
+              id='price'
+              name='price'
+              className='border rounded w-full py-2 px-3'
+              defaultValue={property.price}
             />
           </div>
         </div>

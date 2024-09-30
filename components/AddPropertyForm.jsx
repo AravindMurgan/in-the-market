@@ -433,7 +433,10 @@ const PropertyAddForm = () => {
       </div>
 
       <div>
-        <SubmitButton />
+        <SubmitButton 
+          pendingText='Adding Property...'
+          text='Add Property'
+        />
       </div>
     </form>
   );

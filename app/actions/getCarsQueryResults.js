@@ -60,10 +60,7 @@ const locationPattern = `^${location}`;
   }
   
 
-  console.log('query',query);
-
   const getCarsQueryResults = await Car.find(query).lean();
-  console.log(getCarsQueryResults.length);
   // Sort results: first prioritize exact match on 'location' for brand, model, or other fields, then show others
   const sortedResults = getCarsQueryResults.sort((a, b) => {
     // Check if 'location' matches any of the relevant fields (brand, model, etc.)

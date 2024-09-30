@@ -130,8 +130,6 @@ const Sidebar = ({ properties, setProperties ,setMatchFound}) => {
         }
         maxScore += amenityScores[amenity]; // Max score includes all priority levels
       }
-      console.log('score',score);
-      console.log('maxScore',maxScore);
       // Normalize the score to get a percentage
       const finalScore = (score / maxScore) * 100;
       return {
@@ -146,7 +144,6 @@ const Sidebar = ({ properties, setProperties ,setMatchFound}) => {
     );
 
     // Update the properties list with the ranked properties
-    console.log(sortedProperties);
     setProperties(sortedProperties);
     const isMatchFound = sortedProperties.find((property) => property.score === 100);
     if (isMatchFound) {
