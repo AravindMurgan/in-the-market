@@ -1,11 +1,11 @@
 "use client";
+import fetchPropertyById from "@/app/actions/fetchPropertyById";
 import BookmarkButton from "@/components/BookmarkButton";
 import PropertyContactForm from "@/components/PropertyContactForm";
 import PropertyDetails from "@/components/PropertyDetails";
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyImages from "@/components/PropertyImages";
 import ShareButtons from "@/components/ShareButtons";
-import { fetchProperty } from "@/utils/requests";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
@@ -19,7 +19,7 @@ const PropertyPage = () => {
     if (!id) return;
     const fetchPropertyData = async () => {
       try {
-        const property = await fetchProperty(id);
+        const property = await fetchPropertyById(id);
         setProperty(property);
       } catch (error) {
         // throw new Error("Error fetching property.")

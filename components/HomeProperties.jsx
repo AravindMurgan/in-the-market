@@ -1,7 +1,7 @@
 import React from "react";
 import PropertyCard from "./PropertyCard";
 import Link from "next/link";
-import { fetchProperties } from "@/utils/requests";
+import fetchProperties from "@/app/actions/fetchProperties";
 
 
 
