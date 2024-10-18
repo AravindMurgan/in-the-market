@@ -12,8 +12,18 @@ const nextConfig = {
                 hostname:'res.cloudinary.com',
                 pathname:'**'
             }
+
         ]
+    },
+    async rewrites() {
+        return [
+            {
+                source: '/api/:path*',
+                destination: 'https://in-the-market.vercel.app/:path*',
+            },
+        ];
     }
+
 };
 
 export default nextConfig;
