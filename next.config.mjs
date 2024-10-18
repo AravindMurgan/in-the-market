@@ -15,14 +15,14 @@ const nextConfig = {
 
         ]
     },
-    async rewrites() {
-        return [
-            {
-                source: '/api/:path*',
-                destination: 'https://in-the-market.vercel.app/:path*',
-            },
-        ];
-    }
+    // async rewrites() {
+    //     return [
+    //         {
+    //             source: '/api/:path*',
+    //             destination: 'https://in-the-market.vercel.app/:path*',
+    //         },
+    //     ];
+    // }
 
 };
 
