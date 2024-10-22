@@ -1,6 +1,6 @@
 # In The Market: Luxury Made Simple
 
-> A web application to help you find your next rental property.
+> A web application to help you find your next luxury property and car
 
 
 
